@@ -24,6 +24,8 @@ public class UsuarioService {
 
         verificarExistenciaUsuarioPorNome(usuario);
 
+        verificarExistenciaUsuarioPorEmail(usuario);
+
         usuarioRepository.save(usuario);
 
         return mapper.map(usuario, UsuarioDTO.class);
@@ -36,6 +38,17 @@ public class UsuarioService {
                 .ifPresent(usuarioExistente -> {
                     if (!usuarioExistente.equals(usuario)) {
                         throw new UsuarioRegistradoException(String.format("Já existe um usuario cadastrado com o nome %s", nome));
+                    }
+                });
+    }
+
+    private void verificarExistenciaUsuarioPorEmail(Usuario usuario)  {
+        String email = usuario.getEmail();
+
+        usuarioRepository.findByEmail(email)
+                .ifPresent(usuarioExistente -> {
+                    if (!usuarioExistente.equals(usuario)) {
+                        throw new UsuarioRegistradoException(String.format("Já existe um usuario cadastrado com o email %s", email));
                     }
                 });
     }
