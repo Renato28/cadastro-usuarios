@@ -1,9 +1,6 @@
 package br.com.firstdecision.user.registration.api.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Entity(name = "Usuario")
@@ -19,8 +16,10 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String nome;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
     private String senha;
