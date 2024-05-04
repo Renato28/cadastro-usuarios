@@ -14,11 +14,10 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private ModelMapper mapper;
-
     @Transactional
     public UsuarioDTO cadastrar(UsuarioDTO dto) {
+
+        ModelMapper mapper = new ModelMapper();
 
         Usuario usuario = mapper.map(dto, Usuario.class);
         usuarioRepository.save(usuario);
